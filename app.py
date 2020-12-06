@@ -19,11 +19,10 @@ def profile_logged():
         response.set_cookie('userID', username)
         return response
     else:
-        # handle GET request.
-        pass
+        username = get_cookie()
+        return render_template('profile.html', username=username)
 
 
-# @app.route('/getcookie')
 def get_cookie():
     username = request.cookies.get('userID')
     return username
@@ -32,14 +31,13 @@ def get_cookie():
 @app.route('/profile/films')
 def show_films():
     username = get_cookie()
-    return f'hello {username}'
-    # return 'films'
+    return render_template('films.html', username=username)
 
 
 @app.route('/profile/actors')
 def show_actors():
     username = get_cookie()
-    return 'actors'
+    return render_template('actors.html', username=username)
 
 
 @app.route('/profile/films/<int:film_id>')
