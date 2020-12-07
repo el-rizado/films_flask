@@ -2,9 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
 dbconnect.py
-
+*.swp
 
 *.idea/
 # C extensions
