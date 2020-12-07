@@ -51,7 +51,7 @@
 <body>
     <div class="container">
         <div class="head">
-            <h1>Hello {{username}}</h1>
+            <h1>{{username}}</h1>
         </div>
         <div class="menu">
             <ul>
@@ -63,25 +63,17 @@
         <div class="show">
             <table style="width:100%">
               <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Age</th>
+                <th>title</th>
+                <th>release_year</th>
+                <th>description</th>
               </tr>
-              <tr>
-                <td>Jill</td>
-                <td>Smith</td>
-                <td>50</td>
-              </tr>
-              <tr>
-                <td>Eve</td>
-                <td>Jackson</td>
-                <td>94</td>
-              </tr>
-              <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>80</td>
-              </tr>
+                {% for film in films %}
+                    <tr>
+                        <td><a href="{{ url_for('film_info', film_id=film[0]) }}"> {{ film[1] }}</a></td>
+                        <td>{{ film[2] }}</td>
+                        <td>{{ film[3] }}</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
     </div>

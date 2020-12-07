@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, make_response
-import psycopg2
+import dbconnect
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -31,7 +31,14 @@ def get_cookie():
 @app.route('/profile/films')
 def show_films():
     username = get_cookie()
-    return render_template('films.html', username=username)
+    conn = dbconnect.connect()
+    try:
+        with conn.cursor() as curs:
+            curs.execute('SELECT film_id, title, release_year, description FROM film ORDER BY title;')
+            films = curs.fetchall()
+    finally:
+        conn.close()
+    return render_template('films.html', username=username, films=films)
 
 
 @app.route('/profile/actors')
