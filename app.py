@@ -46,7 +46,7 @@ def show_actors():
     username = get_cookie()
     conn = dbconnect.connect()
     try:
-        with conn.cursur() as curs:
+        with conn.cursor() as curs:
             curs.execute('SELECT actor_id, first_name, last_name FROM actor ORDER BY last_name ;')
             actors = curs.fetchall()
     finally:
