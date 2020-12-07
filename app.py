@@ -44,7 +44,14 @@ def show_films():
 @app.route('/profile/actors')
 def show_actors():
     username = get_cookie()
-    return render_template('actors.html', username=username)
+    conn = dbconnect.connect()
+    try:
+        with conn.cursur() as curs:
+            curs.execute('SELECT actor_id, first_name, last_name FROM actor ORDER BY last_name ;')
+            actors = curs.fetchall()
+    finally:
+        conn.close()
+    return render_template('actors.html', username=username, actors=actors)
 
 
 @app.route('/profile/films/<int:film_id>')
